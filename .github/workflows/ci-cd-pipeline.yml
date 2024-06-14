@@ -19,6 +19,17 @@ jobs:
       working-directory: guaradata-frontend-main
       run: npm install
 
+    - name: Build frontend
+      working-directory: guaradata-frontend-main
+      run: npm run build
+
+
+    - name: Run frontend in development mode
+      working-directory: guaradata-frontend-main
+      run: npm run dev &
+      env:
+        CI: true
+
     - name: Run frontend tests
       working-directory: guaradata-frontend-main
       run: npm test
