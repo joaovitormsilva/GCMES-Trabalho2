@@ -16,19 +16,19 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies for frontend
-      working-directory: frontend
+      working-directory: guaradata-frontend-main
       run: npm install
 
     - name: Run frontend tests
-      working-directory: frontend
+      working-directory: guaradata-frontend-main
       run: npm test
 
     - name: Install dependencies for backend
-      working-directory: backend
+      working-directory: guaradata-backend-main
       run: npm install
 
     - name: Run backend tests
-      working-directory: backend
+      working-directory: guaradata-backend-main
       run: npm test
 
     - name: SonarCloud Scan
@@ -38,6 +38,6 @@ jobs:
         organization: joaovitormsilva
         token: ${{ secrets.SONAR_TOKEN }}
         options: >
-          -Dsonar.sources=backend,frontend
-          -Dsonar.tests=backend/tests,frontend/tests
+          -Dsonar.sources=guaradata-backend-main,guaradata-frontend-main
+          -Dsonar.tests=guaradata-backend-main/tests,guaradata-frontend-main/tests
           -Dsonar.inclusions=**/*.js
