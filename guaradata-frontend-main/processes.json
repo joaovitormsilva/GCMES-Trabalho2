@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "name": "guaradata-frontend",
+            "script": ".output/server/index.mjs",
+            "instances": 1,
+            "exec_mode": "cluster",
+            "autorestart": true,
+            "watch": false,
+            "env": {
+                "NODE_ENV": "production",
+                "PORT": 3000
+            }
+        }
+    ]
+}

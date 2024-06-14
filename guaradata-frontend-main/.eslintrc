@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "space-before-function-paren": "off",
+    "eslint-disable-next-line": "off",
+    "no-console": "off",
+    "semi": "off",
+    "comma-dangle": "off",
+    "indent": "off",
+    "vue/html-indent": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/first-attribute-linebreak": "off"
+  },
+  "extends": [
+    "@nuxtjs/eslint-config-typescript"
+  ]
+}

@@ -1,0 +1,111 @@
+# Docker Compose Configuration
+# visit https://docs.docker.com/compose/
+
+version: "3.8"
+services:
+  nginx-guaradata:
+    container_name: nginx-guaradata
+    build:
+      context: ./nginx/prod
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/prod/config/nginx:/etc/nginx
+      - ./nginx/prod/share/index.html:/usr/share/nginx/html/index.html
+    restart: on-failure:5
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.2
+
+  mongodb-guaradata:
+    image: mongo:7.0
+    container_name: mongodb-guaradata
+    restart: always
+    volumes:
+      - ./nosqldb:/data/db
+    env_file: .env
+    environment:
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASS}
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.3
+
+  postgres-guaradata:
+    image: postgres:16.2-alpine
+    container_name: postgres-guaradata
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./sqldb/postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.4
+
+  nestjs-guaradata:
+    container_name: nestjs-guaradata
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        DEPLOY_CONFIG: ${DEPLOY_CONFIG}
+    env_file: .env
+    restart: always
+    depends_on:
+      mongodb-guaradata:
+        condition: service_started
+      postgres-guaradata:
+        condition: service_started
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.5
+
+  mongo-express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_MONGODB_URL=${DATABASE_URI}
+      - ME_CONFIG_BASICAUTH=${BASICAUTH}
+      - ME_CONFIG_BASICAUTH_USERNAME=${BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${BASICAUTH_PASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${MONGODB_PORT}
+    ports:
+      - 8081:8081
+    depends_on:
+      nginx-guaradata:
+        condition: service_started
+      mongodb-guaradata:
+        condition: service_started
+      postgres-guaradata:
+        condition: service_started
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.6
+
+  nuxt-guaradata:
+    container_name: nuxt-guaradata
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        DEPLOY_CONFIG: ${DEPLOY_CONFIG}
+    env_file: .env
+    restart: always
+    depends_on:
+      nestjs-guaradata:
+        condition: service_started
+    networks:
+      guaradata-network:
+        ipv4_address: 172.168.0.7
+
+networks:
+  guaradata-network:
+    ipam:
+      config:
+        - subnet: 172.168.0.0/28
