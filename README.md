@@ -1,4 +1,4 @@
-```markdown
+
 # Trabalho 2 GCMES 
 
 Este é o branch de desenvolvimento (`develop`) do projeto. Ele contém o código mais recente e estável em desenvolvimento.
