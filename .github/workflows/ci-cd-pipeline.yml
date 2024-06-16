@@ -29,19 +29,20 @@ jobs:
       env:
         CI: true
 
-   # - name: Install dependencies for backend
-   #   working-directory: guaradata-backend-main
-    #  run: npm install
+    - name: Install dependencies for backend
+      working-directory: guaradata-backend-main
+      run: npm install
 
-   # - name: Run backend tests
-   #   working-directory: guaradata-backend-main
-    #  run: npm test
+    - name: Run backend tests
+      working-directory: guaradata-backend-main
+      run: npm test
 
     - name: Set up Sonar Scanner
       run: |
         curl -sSLo /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
         unzip /tmp/sonar-scanner-cli.zip -d /tmp
-        export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
+        sudo mv /tmp/sonar-scanner-4.6.2.2472-linux /opt/sonar-scanner
+        sudo ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
     - name: SonarCloud Scan
       env:
