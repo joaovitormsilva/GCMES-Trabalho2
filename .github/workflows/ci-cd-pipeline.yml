@@ -23,35 +23,33 @@ jobs:
       working-directory: guaradata-frontend-main
       run: npm run build
 
-
     - name: Run frontend in development mode
       working-directory: guaradata-frontend-main
       run: npm run dev &
       env:
         CI: true
 
-  #  - name: Run frontend tests
-    #  working-directory: guaradata-frontend-main
-  #    run: npm test
-
-    #- name: Install dependencies for backend
-    #  working-directory: guaradata-backend-main
+   # - name: Install dependencies for backend
+   #   working-directory: guaradata-backend-main
     #  run: npm install
-
-
-    
 
    # - name: Run backend tests
    #   working-directory: guaradata-backend-main
- #     run: npm test
+    #  run: npm test
+
+    - name: Set up Sonar Scanner
+      run: |
+        curl -sSLo /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+        unzip /tmp/sonar-scanner-cli.zip -d /tmp
+        export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
 
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@v1.3
-      with:
-        projectKey: joaovitormsilva_GCMES-Trabalho2
-        organization: joaovitormsilva
-        token: ${{ secrets.SONAR_TOKEN }}
-        options: >
-          -Dsonar.sources=guaradata-backend-main,guaradata-frontend-main
-          -Dsonar.tests=guaradata-backend-main/tests,guaradata-frontend-main/tests
-          -Dsonar.inclusions=**/*.js
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        sonar-scanner \
+        -Dsonar.organization=joaovitormsilva \
+        -Dsonar.projectKey=joaovitormsilva_GCMES-Trabalho2 \
+        -Dsonar.sources=guaradata-backend-main,guaradata-frontend-main \
+        -Dsonar.tests=guaradata-backend-main/tests,guaradata-frontend-main/tests \
+        -Dsonar.inclusions=**/*.js
