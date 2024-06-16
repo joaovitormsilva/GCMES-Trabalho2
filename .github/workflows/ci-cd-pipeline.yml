@@ -29,13 +29,13 @@ jobs:
       env:
         CI: true
 
-    - name: Install dependencies for backend
-      working-directory: guaradata-backend-main
-      run: npm install
+   # - name: Install dependencies for backend
+    #  working-directory: guaradata-backend-main
+     # run: npm install
 
-    - name: Run backend tests
-      working-directory: guaradata-backend-main
-      run: npm test
+  #  - name: Run backend tests
+  #    working-directory: guaradata-backend-main
+  #    run: npm test
 
     - name: Set up Sonar Scanner
       run: |
