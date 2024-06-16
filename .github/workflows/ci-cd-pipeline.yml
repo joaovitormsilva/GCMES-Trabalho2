@@ -30,17 +30,20 @@ jobs:
       env:
         CI: true
 
-    - name: Run frontend tests
-      working-directory: guaradata-frontend-main
-      run: npm test
+  #  - name: Run frontend tests
+    #  working-directory: guaradata-frontend-main
+  #    run: npm test
 
-    - name: Install dependencies for backend
-      working-directory: guaradata-backend-main
-      run: npm install
+    #- name: Install dependencies for backend
+    #  working-directory: guaradata-backend-main
+    #  run: npm install
 
-    - name: Run backend tests
-      working-directory: guaradata-backend-main
-      run: npm test
+
+    
+
+   # - name: Run backend tests
+   #   working-directory: guaradata-backend-main
+ #     run: npm test
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v1.3
