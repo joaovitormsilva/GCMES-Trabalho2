@@ -1,7 +1,7 @@
 
 # Trabalho 2 GCMES 
 
-Este é o branch de desenvolvimento (`develop`) do projeto. Ele contém o código mais recente e estável em desenvolvimento.
+Este é o branch de desenvolvimento (`hotfix/BF001`) do projeto. Ele contém o código mais recente e estável em desenvolvimento.
 
 ## Visão Geral
 
