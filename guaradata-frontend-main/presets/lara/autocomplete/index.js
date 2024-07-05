@@ -203,11 +203,9 @@ export default {
             {
                 'text-surface-700 dark:text-white/80': !context.focused && !context.selected,
                 'bg-surface-200 dark:bg-surface-600/60': context.focused && !context.selected,
-                'text-surface-700 dark:text-white/80': context.focused && !context.selected,
-
+               
                 'text-primary-700 dark:text-white/80': context.focused && context.selected,
                 'bg-primary-100 dark:bg-primary-400': context.focused && context.selected,
-                'text-primary-700 dark:text-white/80': !context.focused && context.selected,
                 'bg-primary-50 dark:bg-primary-300': !context.focused && context.selected
             },
 
