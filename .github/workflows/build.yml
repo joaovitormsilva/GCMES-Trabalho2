@@ -13,31 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # Desabilitar clones superficiais para uma melhor relevância da análise
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Desabilitar clones superficiais para uma melhor relevância da análise
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
 
-        
-    - name: Install dependencies for frontend
-      working-directory: guaradata-frontend-main
-      run: npm install
-  
-    - name: Build frontend
-      working-directory: guaradata-frontend-main
-      run: npm run build
-    
-    - name: Run frontend in development mode
-      working-directory: guaradata-frontend-main
-      run: npm run dev &
-      env:
-        CI: true
+      - name: Install dependencies for frontend
+        working-directory: guaradata-frontend
+        run: npm install
 
+      - name: Build frontend
+        working-directory: guaradata-frontend
+        run: npm run build
+
+      - name: Run frontend in development mode
+        working-directory: guaradata-frontend
+        run: npm run test &
+        env:
+          CI: true
 
   sonarcloud:
     name: SonarCloud
@@ -45,12 +43,12 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # Desabilitar clones superficiais para uma melhor relevância da análise
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Desabilitar clones superficiais para uma melhor relevância da análise
 
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necessário para obter informações de PR, se houver
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Necessário para obter informações de PR, se houver
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

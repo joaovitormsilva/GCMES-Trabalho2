@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/content",
     "@nuxtjs/mdc",
+    "@nuxt/test-utils/module",
   ],
   mdc: {
     highlight: {

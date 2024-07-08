@@ -29,11 +29,11 @@
   </div>
 </template>
 <script setup lang="ts">
+
 const creators = [{ name: 'Ivan Pinheiro', img_url: 'https://avatars.githubusercontent.com/u/85149918', url_profile: 'https://www.linkedin.com/in/ivanpinheiro/', subtitle: 'Data Engineer | Full Stack', github_url: 'https://github.com/ivpinheiro', linkedin_url: 'https://www.linkedin.com/in/ivanpinheiro/', about_me: 'Data Engineer com experiência em Digital Analytics, Rastreamento Web e integração de dados utilizando ferramentas como Airflow, Mage.IA, PySpark e Google Cloud.', resume_id: 'ivan-pinheiro' }, { name: 'Douglas Souza', img_url: 'https://avatars.githubusercontent.com/u/91169043', url_profile: 'https://www.linkedin.com/in/douglassudre/', subtitle: 'Data Scientist | Statistical', github_url: 'https://github.com/DSudre', linkedin_url: 'https://www.linkedin.com/in/douglassudre', about_me: 'Estatístico e Cientista de Dados. Ex-judoca. Me interesso por tecnologia, música, esportes e moda.', resume_id: 'douglas-souza' }]
-// async function state() {
-//   return await useFetch('https://api.github.com/repos/ivpinheiro/artesania/contributors')
-// }
+
 </script>
+
 <style lang="scss" scoped>
 .container-about {
   background-color: white;
