@@ -2,7 +2,7 @@
 //Base local url: http://localhost:5000
 @base_url = http://localhost/api
 
-###
+### Criação de usuários
 POST {{base_url}}/user
 Content-Type: application/json
 
