@@ -13,29 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Desabilitar clones superficiais para uma melhor relevância da análise
-
-      - name: Set up Node.js
+      - uses: actions/checkout@v4
+      - name: Using Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-
-      - name: Install dependencies for frontend
-        working-directory: guaradata-frontend
-        run: npm install
-
-      - name: Build frontend
-        working-directory: guaradata-frontend
-        run: npm run build
-
-      - name: Run frontend in development mode
-        working-directory: guaradata-frontend
-        run: npm run test &
-        env:
-          CI: true
+      - name: run install, build and test
+        run: |
+          npm install
+          npm run build
+          npm run test
 
   sonarcloud:
     name: SonarCloud
