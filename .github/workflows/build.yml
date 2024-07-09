@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 20.x
       - name: run install, build and test
+        working-directory: guaradata-frontend
         run: |
           npm install
           npm run build
