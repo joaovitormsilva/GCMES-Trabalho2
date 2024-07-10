@@ -7,13 +7,17 @@
         </div>
       </template>
       <template #title>
-        {{ props.name }}
+        <div class="title">
+          {{ props.name }}
+        </div>
       </template>
       <template #subtitle>
-        {{ props.subtitle }}
+        <div class="subtitle">
+          {{ props.subtitle }}
+        </div>
       </template>
       <template #content>
-        <p class="m-0">
+        <p class="m-0 content">
           {{ props.about_me }}
         </p>
       </template>
@@ -49,6 +53,18 @@ const props = defineProps(['name', 'img_url', 'url_profile', 'subtitle', 'github
 .card {
   width: 30em;
   height: 30em;
+}
+
+.title {
+  color: white;
+}
+
+.subtitle {
+  color: rgb(202, 192, 192);
+}
+
+.content {
+  color: white
 }
 
 @media (max-width: 550px) {
